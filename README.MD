@@ -31,8 +31,8 @@ Follow these steps to set up and run the project locally.
 
 ### **Step 1: Clone the Repository**
 ```bash
-git clone https://github.com/your-username/health-lab-finder.git
-cd health-lab-finder
+git clone https://github.com/exclusiveabhi/medical-labs-finder.git
+cd medical-labs-finder
 ```
 
 ### **Step 2: Install Dependencies**
