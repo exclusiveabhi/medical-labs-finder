@@ -1,11 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+require('dotenv').config();
 
-// Your Google Places API Key (replace with your actual key)
-const GOOGLE_API_KEY = 'AIzaSyDFd0_rZ2GzbE5T0Qa7e3h82oOseA5BFqs';
-
-// Endpoint to get health labs in a specific city
+// yaha replace krna hai apna google api key se !
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+// Endpoint yeh rha /api/health-labs/:city
 router.get('/health-labs/:city', async (req, res) => {
   const city = req.params.city;
   try {
