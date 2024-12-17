@@ -91,11 +91,16 @@ const App = () => {
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
               <CardMedia
-                  component="img"
-                  height="140"
-                  image={`https://source.unsplash.com/random`}
-                  alt="Health Lab"
-                />
+  component="img"
+  height="140"
+  image="https://source.unsplash.com/400x300/?health,lab"
+  alt="Health Lab"
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/400x300?text=Health+Lab";
+  }}
+/>
+
+
                 <CardContent>
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2" }}>
                     {lab.name}
