@@ -32,7 +32,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/health-labs/${city}`
+        `https://medical-labs-finder.onrender.com/api/health-labs/${city}`
       );
       setLabs(response.data);
     } catch (err) {
