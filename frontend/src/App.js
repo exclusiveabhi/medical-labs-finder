@@ -36,6 +36,7 @@ const App = () => {
       );
       setLabs(response.data);
     } catch (err) {
+      console.error("Error fetching health labs:", err.message);
       setError(
         err.response?.data?.message || "Something went wrong. Please try again."
       );
@@ -108,7 +109,7 @@ const App = () => {
                 <CardMedia
                   component="img"
                   height="140"
-                  image="https://source.unsplash.com/400x300/?health,lab"
+                  image={`https://source.unsplash.com/400x300/?health,lab&random=${index}`}
                   alt="Health Lab"
                   onError={(e) => {
                     e.target.src =
@@ -163,7 +164,6 @@ const App = () => {
         </Grid>
       )}
 
-      
       {!loading && labs.length === 0 && !error && (
         <Typography
           textAlign="center"

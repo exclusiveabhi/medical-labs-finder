@@ -1,36 +1,37 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-require('dotenv').config();
+require('dotenv').config(); 
 
-// yaha replace krna hai apna google api key se !
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-
-// Endpoint yeh rha /api/health-labs/:city
 router.get('/health-labs/:city', async (req, res) => {
   const city = req.params.city;
   try {
-   
-    const response = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
+    const response = await axios.get('https://api.foursquare.com/v3/places/search', {
+      headers: {
+        Authorization: process.env.FOURSQUARE_API_KEY,
+      },
       params: {
-        query: `health labs in ${city}`,
-        key: GOOGLE_API_KEY
-      }
+        query: 'health labs',
+        near: city,
+        limit: 10,
+      },
     });
 
+    // Map the response data
     const healthLabs = response.data.results.map(lab => ({
-      name: lab.name,
-      address: lab.formatted_address,
-      service: lab.types.join(', '), 
-      phone: lab.formatted_phone_number || 'Not Available',
+      name: lab.name || 'Unknown Name',
+      address: lab.location.formatted_address || 'Address not available',
+      service: 'Health Lab', 
+      phone: lab.tel || 'Not Available',
     }));
 
     if (healthLabs.length === 0) {
-      return res.status(404).json({ message: 'No health labs found in this city.' });
+      return res.status(404).json({ message: `No health labs found in ${city}.` });
     }
 
     res.status(200).json(healthLabs);
   } catch (err) {
+    console.error('Error fetching health labs:', err.message);
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
